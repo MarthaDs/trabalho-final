@@ -1,18 +1,20 @@
 {% extends 'siteapp/base.html' %}
 
 {% block content %}
-    <div class="hero-inner">
+  <div class="hero-inner">
+    <div>
+      <h1 class="hero-title mt-0">Escolha as carateristicas</h1>
+      <p>{{ linebreaksbr }}</p>
+    </div>
+  </div>
+  <div class="hero-form field field-grouped">
+    <form method="POST" class="candidate-form">{% csrf_token %}
       <div>
-        <h1 class="hero-title mt-0">Escolha as carateristicas</h1>
-        <p>{{ linebreaksbr }}</p>
-      </div>
-    </div>
-    <div class="hero-form field field-grouped">
-      <form method="POST" class="candidate-form">{% csrf_token %}
         {{ form_physical.as_p }}
-        {{ form_race.as_p }}
-        {{ form_intelect.as_p }}
-        <button type="submit" class="button button-primary button-block">Criar</button>
-      </form>
-    </div>
+      </div>
+      {{ form_race.as_p }}
+      {{ form_intelect.as_p }}
+      <button type="submit" class="button button-primary button-block">Criar</button>
+    </form>
+  </div>
 {% endblock %}

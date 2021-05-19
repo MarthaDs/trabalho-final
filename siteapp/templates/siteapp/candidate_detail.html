@@ -1,0 +1,39 @@
+{% extends 'siteapp/base.html' %}
+{% load random_job%}
+{% block content %}
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <div class="container">
+        <h1 class="hero-title mt-0">Você criou uma pessoa de 
+          {% if candidate.stereotype.stereotype == 'superior_race'%}
+            Raça Superior
+          {% else %}
+            Raça Inferior
+          {% endif %}
+        </h1>
+        <p>{{ linebreaksbr }}</p>
+      </div>
+    </div>
+    <div class="container">
+      <div class="hero-copy">
+        <h3 class="hero-title mt-0"> Essa pessoa seria perfeita para ser
+          {% if candidate.race.race == 'white' %}
+            {% if candidate.intelect.intelligence == 'fool' %}
+              Herdeira
+            {% endif %}
+            {% random_job 'white' %}
+          {% endif %}
+          {% if candidate.race.race == 'black' or candidate.physical_characteristic.skin_color.skin_color == 'brown' %}
+            {% if candidate.intelect.intelligence.intelligence == 'fool' or candidate.intelect.inclination.inclination == 'lazy' %}
+              Desempregada
+            {% endif %}
+            {% if candidate.intelect.reliability.reliability == 'dishonest' or candidate.intelect.nature.nature == 'bad_nature' %}
+              Presidiária
+            {% endif %}
+            {% random_job 'black' %}
+          {% endif %}
+        </h3>
+      </div>
+    </div>
+  </div>
+{% endblock %}

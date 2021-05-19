@@ -31,13 +31,17 @@ class PhysicalCharacteristic(models.Model):
 	]
 
 	beauty = models.CharField(max_length=10,blank=True,
-		unique=True, choices=BEAUTY_CHOICES)
+		unique=False, choices=BEAUTY_CHOICES)
 	skin_color = models.CharField(max_length=10,blank=True,
-		unique=True, choices=SKIN_CHOICES)
+		unique=False, choices=SKIN_CHOICES)
 	hair_type = models.CharField(max_length=15,blank=True,
-		unique=True, choices=HAIR_CHOICES)
+		unique=False, choices=HAIR_CHOICES)
 	facial_trace = models.CharField(max_length=15,blank=True,
-		unique=True, choices=FACIAL_TRACE)
+		unique=False, choices=FACIAL_TRACE)
+
+	def __str__(self):
+	  return '%s %s %s %s' % (self.beauty, self.skin_color, 
+      self.hair_type, self.facial_trace)
 
 
 class Intelect(models.Model):
@@ -66,14 +70,17 @@ class Intelect(models.Model):
 	]
 
 	inclination = models.CharField(max_length=15, blank=True,
-		unique=True, choices=INCLINATION_CHOICES)
+		unique=False, choices=INCLINATION_CHOICES)
 	reliability = models.CharField(max_length=15,blank=True,
-		unique=True, choices=RELIABILITY_CHOICES)
+		unique=False, choices=RELIABILITY_CHOICES)
 	nature = models.CharField(max_length=15,blank=True,
-		unique=True, choices=NATURE_CHOICES)
+		unique=False, choices=NATURE_CHOICES)
 	intelligence = models.CharField(max_length=15,blank=True,
-		unique=True, choices=INTELLIGENCE_CHOICES)
+		unique=False, choices=INTELLIGENCE_CHOICES)
 
+	def __str__(self):
+	  return '%s %s %s %s' % (self.inclination, self.reliability, 
+      self.nature, self.intelligence)
 
 class SocialRace(models.Model):
 	"""
@@ -86,7 +93,10 @@ class SocialRace(models.Model):
 	]
 
 	race = models.CharField(max_length=10,blank=True,
-		unique=True, choices=RACE_CHOICES)
+		unique=False, choices=RACE_CHOICES)
+
+	def __str__(self):
+	  return self.race
 
 
 class Stereotype(models.Model):
@@ -100,7 +110,10 @@ class Stereotype(models.Model):
 	]
 
 	stereotype = CharField(max_length=15, blank=True,
-		unique=True, choices=STEREOTYPE_CHOICES)
+		unique=False, choices=STEREOTYPE_CHOICES)
+
+	def __str__(self):
+	  return self.stereotype
 
 
 class Candidate(models.Model):
@@ -109,11 +122,13 @@ class Candidate(models.Model):
 	"""
 
 	candidate_id = models.AutoField(primary_key=True)
-	physical_characteristic = models.ForeignKey(PhysicalCharacteristic, blank=True, on_delete=models.CASCADE)
-	intelect = models.ForeignKey(Intelect, blank=True, on_delete=models.CASCADE)
-	race = models.ForeignKey(SocialRace, blank=True, on_delete=models.CASCADE)
-	stereotype = models.ForeignKey(Stereotype, blank=True, on_delete=models.CASCADE)
+	physical_characteristic = models.ForeignKey(PhysicalCharacteristic, null=True, blank=True, on_delete=models.CASCADE)
+	intelect = models.ForeignKey(Intelect, null=True, blank=True, on_delete=models.CASCADE)
+	race = models.ForeignKey(SocialRace, null=True, blank=True, on_delete=models.CASCADE)
+	stereotype = models.ForeignKey(Stereotype, null=True, blank=True, on_delete=models.CASCADE)
 	created_date = models.DateTimeField(default=timezone.now)
+	job = models.CharField(max_length=20, null=True, blank=True)
 
 	def __str__(self):
-		return self.candidate_id
+		return '%s %s %s %s %s %s %s' % (self.candidate_id, self.physical_characteristic, 
+      self.intelect, self.race, self.stereotype, self.created_date, self.job)
