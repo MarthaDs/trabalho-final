@@ -1,0 +1,4 @@
+django
+django-rdf-io
+rdflib
+requests
